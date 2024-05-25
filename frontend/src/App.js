@@ -5,7 +5,7 @@ import AllRoutes from './routes/AllRoutes';
 import AuthRoutes from './routes/authRoutes';
 
 function App() {
-  const [auth, setAuth] = useState(true); // Initialize auth state to false
+  const [auth, setAuth] = useState(false);
   console.log(auth)
   return (
     <div className="App bg-black">

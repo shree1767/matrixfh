@@ -19,8 +19,8 @@ const Login = ({ setAuth }) => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-black text-white">
-            <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
+            <div className="bg-gray-800 p-8  shadow-lg w-full max-w-sm">
+                <h2 className="text-2xl font-semibold mb-6 text-center">Welcome Gamer !</h2>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label className="block text-sm font-bold mb-2" htmlFor="email">
@@ -51,7 +51,7 @@ const Login = ({ setAuth }) => {
                         />
                         <button
                             type="button"
-                            className="absolute right-3 top-10"
+                            className="absolute right-3 top-11"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -59,7 +59,7 @@ const Login = ({ setAuth }) => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-regular py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration:300"
                     >
                         Log In
                     </button>
