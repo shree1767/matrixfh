@@ -1,10 +1,24 @@
-const express = require("express");
-const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import express, { Request, Response } from 'express';
+import { check, validationResult } from 'express-validator';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import {User} from '../models/User';
+
 const router = express.Router();
 
-const User = require("../model/User");
+interface SignupRequestBody {
+  username: string;
+  email: string;
+  password: string;
+  phone: string;
+  age: number;
+  balance: number;
+}
+
+interface LoginRequestBody {
+  email: string;
+  password: string;
+}
 
 router.post(
   "/signup",
@@ -15,9 +29,8 @@ router.post(
     check("phone", "Please Enter a Valid Phone_no").not().isEmpty(),
     check("age", "Please Enter a Valid age").not().isEmpty(),
     check("balance", "Please Enter a balance").not().isEmpty(),
-    
   ],
-  async (req, res) => {
+  async (req: Request<{}, {}, SignupRequestBody>, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -25,7 +38,7 @@ router.post(
       });
     }
 
-    const { username, email, password } = req.body;
+    const { username, email, phone,age,password } = req.body;
     try {
       let user = await User.findOne({
         email,
@@ -39,6 +52,8 @@ router.post(
       user = new User({
         username,
         email,
+        phone,
+        age,
         password,
       });
 
@@ -77,9 +92,9 @@ router.post(
   "/login",
   [
     check("email", "Please enter a valid email").isEmail(),
-    check("password", "Please enter a valid password").isLength({min: 6}),
+    check("password", "Please enter a valid password").isLength({ min: 6 }),
   ],
-  async (req, res) => {
+  async (req: Request<{}, {}, LoginRequestBody>, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -101,7 +116,7 @@ router.post(
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch)
         return res.status(400).json({
-          message: "Incorrect Password !",
+          message: "Incorrect Password!",
         });
 
       const payload = {
@@ -132,4 +147,4 @@ router.post(
   }
 );
 
-module.exports = router;
+export default router;
