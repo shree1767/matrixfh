@@ -12,6 +12,10 @@ router.post(
     check("username", "Please Enter a Valid Username").not().isEmpty(),
     check("email", "Please enter a valid email").isEmail(),
     check("password", "Please enter a valid password").isLength({ min: 6 }),
+    check("phone", "Please Enter a Valid Phone_no").not().isEmpty(),
+    check("age", "Please Enter a Valid age").not().isEmpty(),
+    check("balance", "Please Enter a balance").not().isEmpty(),
+    
   ],
   async (req, res) => {
     const errors = validationResult(req);
