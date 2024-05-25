@@ -7,7 +7,7 @@ export const UserSchema = new Schema (
     phone: {type: Number, required: true},
     age: {type: Number},
     password: {type: String, required: true, unique: true},
-    balance: {type: Float32Array}
+    balance: {type: Number}
     }, 
     {
     timestamps: true
