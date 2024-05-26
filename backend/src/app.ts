@@ -1,28 +1,31 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import config from "../config";
-import { userRoute } from "./routes/userRoutes"
+import { userRoute } from "./routes/userRoutes";
 import { TransactionRouter } from "./routes/transactionRoutes";
 
 const app = express();
 const port = 3000;
 
+// Enable CORS
+app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Use the auth routes
-
 mongoose.connect(config.mongo.uri)
     .then(() => {
         console.log("connected to mongoDB");
     })
     .catch((err) => {
         console.log("error connecting to mongoDB", err);
-    })
+    });
 
 app.get("/", (req, res) => {
-    res.json({message: "welcome to the api"});
-})
+    res.json({ message: "welcome to the api" });
+});
 
 app.use("/api", userRoute());
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ setAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -8,19 +8,38 @@ const Login = ({ setAuth }) => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        // Assuming some kind of validation or API call happens here
         if (email && password) {
-            setAuth(true);
-            navigate('/'); // Redirect to the Landing page after successful login
+            try {
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    setAuth(true);
+                    navigate('/'); 
+                } else {
+                    console.error(data.message);
+                    alert(data.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Error logging in:', error);
+                alert('Error logging in');
+            }
         }
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-black text-white">
-            <div className="bg-gray-800 p-8  shadow-lg w-full max-w-sm">
-                <h2 className="text-2xl font-semibold mb-6 text-center">Welcome Gamer !</h2>
+            <div className="bg-gray-800 p-8 shadow-lg w-full max-w-sm">
+                <h2 className="text-2xl font-semibold mb-6 text-center">Welcome Gamer!</h2>
                 <form onSubmit={handleLogin}>
                     <div className="mb-4">
                         <label className="block text-sm font-bold mb-2" htmlFor="email">
@@ -59,11 +78,14 @@ const Login = ({ setAuth }) => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-regular py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration:300"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-regular py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                     >
                         Log In
                     </button>
                 </form>
+                <div className="mt-4 text-center">
+                    <p>Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Create One</Link></p>
+                </div>
             </div>
         </div>
     );
