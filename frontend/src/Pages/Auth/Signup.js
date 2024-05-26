@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Signup = ({ setAuth }) => {
   const [form, setForm] = useState({
@@ -12,6 +14,7 @@ const Signup = ({ setAuth }) => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({
@@ -28,22 +31,15 @@ const Signup = ({ setAuth }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(form), // Send form data as JSON string
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        // Save token to localStorage
         localStorage.setItem('token', data.token);
-
-        // Set auth to true
         setAuth(true);
-
-        // Handle successful registration (e.g., redirect to another page or show success message)
-        alert('Registration successful');
       } else {
-        // Handle errors
         console.error(data.errors || data.message);
         alert(data.message || 'Registration failed');
       }
@@ -52,7 +48,6 @@ const Signup = ({ setAuth }) => {
       alert('Error registering');
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-black text-white">
       <div className="bg-gray-800 p-8 shadow-lg w-full max-w-sm">
@@ -162,6 +157,9 @@ const Signup = ({ setAuth }) => {
             Register
           </button>
         </form>
+        <div className="mt-4 text-center">
+          <p>Already have an account? <Link to="/" className="text-blue-500 hover:underline">Login</Link></p>
+        </div>
       </div>
     </div>
   );

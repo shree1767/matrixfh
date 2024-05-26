@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = ({ setAuth }) => {
     const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +26,6 @@ const Login = ({ setAuth }) => {
                     setAuth(true);
                     navigate('/'); 
                 } else {
-                    // Handle errors here
                     console.error(data.message);
                     alert(data.message || 'Login failed');
                 }
@@ -84,6 +83,9 @@ const Login = ({ setAuth }) => {
                         Log In
                     </button>
                 </form>
+                <div className="mt-4 text-center">
+                    <p>Don't have an account? <Link to="/signup" className="text-blue-500 hover:underline">Create One</Link></p>
+                </div>
             </div>
         </div>
     );

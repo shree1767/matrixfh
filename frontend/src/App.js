@@ -15,12 +15,14 @@ function App() {
     }
   }, []);
 
+  console.log(auth)
+
   return (
     <div className="App bg-black">
       <Routes>
         {auth ? (
           // Render AllRoutes if authenticated
-          <Route path="/*" element={<AllRoutes />} />
+          <Route path="/*" element={<AllRoutes setAuth={setAuth}/>} />
         ) : (
           // Render AuthRoutes if not authenticated
           <Route path="/*" element={<AuthRoutes setAuth={setAuth}/>} />
