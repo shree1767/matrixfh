@@ -4,20 +4,19 @@ import portraitImage from '../Landing/cd.png';
 const LandingPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState('');
-  const [balance, setBalance] = useState('');
+  const [balance, setBalance] = useState(null);
 
   const handlePayment = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/transaction/buy?gpn', {
+      const response = await fetch('http://localhost:3000/api/transaction/buy?gpn=8527445940', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user, balance }),
+        body: JSON.stringify({ user, balance: Number(balance) }),
       });
       if (response.ok) {
         alert('Payment successful!');
-        // Optionally, you can close the modal or perform any other action upon successful payment
       } else {
         const data = await response.json();
         console.error('Payment failed:', data.message);
@@ -28,6 +27,7 @@ const LandingPage = () => {
       alert('Error processing payment');
     }
   };
+  
 
   return (
     <div className="bg-black min-h-screen flex justify-center items-center">
