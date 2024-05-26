@@ -31,7 +31,7 @@ const Signup = ({ setAuth }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(form), // Send form data as JSON string
+        body: JSON.stringify(form),
       });
 
       const data = await response.json();
