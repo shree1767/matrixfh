@@ -38,7 +38,7 @@ const userRoute = () => {
   router.get("/users/:id", async (req, res) => {
     try {
       const users = await User.findOne({"_id":req.params.id}).then((value) => {
-        return {"username": value.username, "balance" : ((value.balance) ? value.balance : 0)};
+        return {"username": value.username, "fullname": value.fullname, "balance" : ((value.balance) ? value.balance : 0)};
       })
 
       res.status(200).json(users);

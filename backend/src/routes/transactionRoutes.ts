@@ -66,6 +66,20 @@ const AddBalance = async (req, res) => {
 
 }
 
+const getTransactions = async (req, res) => {
+    try {
+        const { username } = await User.findOne({"_id" : req.params.id}).then((value) => {
+            return value;
+        });
+        const transactions = await Transaction.find({"user": username}).sort({"createdAt":1})
+        res.status(200).json(transactions);
+    }catch (err) {
+        console.log(err);
+        res.status(500).json({
+            "message": "server error"
+        })
+    }
+}
 
 
 const TransactionRouter = () => {
@@ -78,6 +92,10 @@ const TransactionRouter = () => {
     router.post("/transaction/addbalance", (req, res) => {
         AddBalance(req, res);
     })
+
+    router.get("/transactions/:id", (req, res) => {
+        getTransactions(req, res);
+    });
 
     return router;
 }
