@@ -2,6 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import config from "../config";
 import { userRoute } from "./routes/userRoutes"
+// import router from './routes/userRoutes';
+import { Hash } from "./utils/hash";
+import { hash } from "crypto";
 
 const app = express();
 const port = 3000;
@@ -11,8 +14,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // Use the auth routes
 
-console.log(`mongodb uri ${config.mongo.uri}`);
-
 mongoose.connect(config.mongo.uri)
     .then(() => {
         console.log("connected to mongoDB");
@@ -21,7 +22,7 @@ mongoose.connect(config.mongo.uri)
         console.log("error connecting to mongoDB", err);
     })
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.json({message: "welcome to the api"});
 })
 
