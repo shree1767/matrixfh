@@ -1,0 +1,61 @@
+/* lp.css */
+
+.landing-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 60px 30px;
+    background: linear-gradient(to bottom, black, #001f3f); /* Black background with dark blue gradient */
+  }
+  
+  .content {
+    max-width: 50%;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .slogan {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .landing-button {
+    background-color: #001f3f;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .landing-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .image-container {
+    max-width: 45%;
+    padding-left: 30px;
+  }
+  
+  .portrait-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
