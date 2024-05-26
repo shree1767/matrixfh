@@ -1,0 +1,21 @@
+/* howItWorks.css */
+
+.container {
+    padding-top: 100px;
+    padding-left: 50px;
+    padding-right: 25px; /* Optional: To keep content aligned */
+  }
+  
+  .heading {
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .text-section {
+    margin-bottom: 2rem; /* Adds space between sections */
+  }
+  
+  .list-item {
+    list-style-type: disc;
+    margin-left: 2rem; /* Indentation for list items */
+  }
+  
