@@ -4,7 +4,7 @@ import Card from './Card';
 const Wallet = () => {
   return (
     <div className="wallet bg-black min-h-screen p-8">
-      <h1 className="text-white text-4xl font-bold mb-8 font-serif">My Wallet</h1>
+      <h1 className="text-white text-4xl font-bold font-serif pt-16 mb-8">My Wallet</h1>
       <div className="flex flex-col gap-4">
         <Card
           titleClass="text-white"
