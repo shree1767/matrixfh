@@ -22,7 +22,7 @@ mongoose.connect(config.mongo.uri)
         console.log("error connecting to mongoDB", err);
     })
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.json({message: "welcome to the api"});
 })
 
