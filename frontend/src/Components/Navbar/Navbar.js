@@ -8,7 +8,7 @@ const Navbar = () => {
       <div  className="flex items-center pl-2 justify-between space-x-8">
         {/* <img src="" alt="" className="h-8" /> */}
         <Link to='/'><h1 className='font-bold text-white'>GAMEPAY</h1></Link>
-        <button className='text-sm font-medium text-white'>How it works</button>
+        <Link to='/walkthrough' className='text-sm font-medium text-white'>How it works</Link>
       </div>
       <div className="flex items-center space-x-8">
         {/* Wallet Icon */}
