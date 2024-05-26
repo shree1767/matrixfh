@@ -1,12 +1,19 @@
 import './App.css';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AllRoutes from './routes/AllRoutes';
 import AuthRoutes from './routes/authRoutes';
 
 function App() {
   const [auth, setAuth] = useState(false);
-  console.log(auth)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setAuth(true);
+    }
+  }, []);
+
   return (
     <div className="App bg-black">
       <Routes>

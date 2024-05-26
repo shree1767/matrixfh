@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-const Signup = () => {
+const Signup = ({ setAuth }) => {
   const [form, setForm] = useState({
-    fullName: '',
+    username: '',
+    fullname: '',
     email: '',
-    phoneNumber: '',
+    phone: '',
     age: '',
     password: ''
   });
@@ -19,8 +20,37 @@ const Signup = () => {
     });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3000/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Save token to localStorage
+        localStorage.setItem('token', data.token);
+
+        // Set auth to true
+        setAuth(true);
+
+        // Handle successful registration (e.g., redirect to another page or show success message)
+        alert('Registration successful');
+      } else {
+        // Handle errors
+        console.error(data.errors || data.message);
+        alert(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Error registering:', error);
+      alert('Error registering');
+    }
   };
 
   return (
@@ -29,17 +59,33 @@ const Signup = () => {
         <h2 className="text-2xl font-semibold mb-6 text-center">Start Your Journey</h2>
         <form onSubmit={handleRegister}>
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="fullName">
+            <label className="block text-sm font-bold mb-2" htmlFor="username">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="w-full p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your username"
+              value={form.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-bold mb-2" htmlFor="fullname">
               Full Name
             </label>
             <input
               type="text"
-              id="fullName"
-              name="fullName"
+              id="fullname"
+              name="fullname"
               className="w-full p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your full name"
-              value={form.fullName}
+              value={form.fullname}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mb-4">
@@ -54,20 +100,22 @@ const Signup = () => {
               placeholder="Enter your email"
               value={form.email}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-bold mb-2" htmlFor="phoneNumber">
+            <label className="block text-sm font-bold mb-2" htmlFor="phone">
               Phone Number
             </label>
             <input
               type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
+              id="phone"
+              name="phone"
               className="w-full p-3 rounded bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter your phone number"
-              value={form.phoneNumber}
+              value={form.phone}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mb-4">
@@ -82,6 +130,7 @@ const Signup = () => {
               placeholder="Enter your age"
               value={form.age}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="mb-4 relative">
@@ -96,6 +145,7 @@ const Signup = () => {
               placeholder="Enter your password"
               value={form.password}
               onChange={handleChange}
+              required
             />
             <button
               type="button"
@@ -107,7 +157,7 @@ const Signup = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-regular py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration:300"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-regular py-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
           >
             Register
           </button>
