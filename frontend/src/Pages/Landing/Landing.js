@@ -8,7 +8,7 @@ const LandingPage = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/transaction/buy?gpn=8527445940', {
+      const response = await fetch('http://localhost:3000/api/transaction/addbalance', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -17,6 +17,7 @@ const LandingPage = () => {
       });
       if (response.ok) {
         alert('Payment successful!');
+        setShowModal(false)
       } else {
         const data = await response.json();
         console.error('Payment failed:', data.message);
@@ -27,6 +28,7 @@ const LandingPage = () => {
       alert('Error processing payment');
     }
   };
+
   
 
   return (

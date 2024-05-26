@@ -1,8 +1,25 @@
 // Wallet.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './Card';
 
 const Wallet = () => {
+  const [balance, setBalance] = useState(null);
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/users/6652f06802fa2bc5f91cc3b5');
+        const data = await response.json();
+        console.log(data)
+        setBalance(data.balance);
+      } catch (error) {
+        console.error('Error fetching balance:', error);
+      }
+    };
+
+    fetchBalance();
+  }, []);
+
   return (
     <div className="bg-black min-h-screen p-8 mt-5">
       <h1 className="text-white text-4xl font-bold pt-16 mb-8">My Wallet</h1>
@@ -11,7 +28,7 @@ const Wallet = () => {
           titleClass="text-white"
           contentClass="text-green-500"
           leftText="Your current balance:"
-          rightText="1000"
+          rightText={balance===null?0:balance}
         />
         <Card
           titleClass="text-white"
