@@ -2,21 +2,24 @@ import React from 'react';
 
 const HowItWorks = () => {
   return (
-    <div className="bg-gradient-to-b from-black to-blue-900 min-h-screen text-white px-4 md:px-12 py-24">
-      <h1 className="text-4xl font-bold mb-8">How It Works</h1>
-      {steps.map((step, index) => (
-        <div key={index} className="mb-8">
-          <h2 className="text-xl font-bold mb-4">{step.title}</h2>
-          <ul className="list-disc ml-8">
-            {step.items.map((item, idx) => (
-              <li key={idx} className="mb-2">{item}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className="bg-gray-900 min-h-screen text-white py-16 px-4 md:px-12 mt-10">
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold mb-8 text-center">How It Works</h1>
+        {steps.map((step, index) => (
+          <div key={index} className="mb-8">
+            <h2 className="text-2xl font-semibold mb-4">{step.title}</h2>
+            <ul className="list-disc pl-6">
+              {step.items.map((item, idx) => (
+                <li key={idx} className="mb-2">{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
+
 
 const steps = [
   {

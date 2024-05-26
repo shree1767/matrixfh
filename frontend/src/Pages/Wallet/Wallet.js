@@ -1,9 +1,10 @@
+// Wallet.js
 import React from 'react';
 import Card from './Card';
 
 const Wallet = () => {
   return (
-    <div className="bg-black min-h-screen p-8">
+    <div className="bg-black min-h-screen p-8 mt-5">
       <h1 className="text-white text-4xl font-bold pt-16 mb-8">My Wallet</h1>
       <div className="flex flex-col gap-4">
         <Card

@@ -25,7 +25,7 @@ const Navbar = ({setAuth}) => {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="text-white text-sm font-medium bg-red-600 py-1 px-3 rounded-md hover:bg-red-700"
+          className="text-white text-sm font-medium py-1 px-3 rounded-md"
         >
           Logout
         </button>
