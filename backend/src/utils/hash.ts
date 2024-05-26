@@ -1,5 +1,13 @@
-import { createHash } from 'crypto';
+import bcrypt from 'bcryptjs';
 
-export const hash = (data: string) => {
-    return createHash('sha256').update(data).digest('hex');
+const compare = (password, hash) => {
+    return bcrypt.compare(password, hash);
 }
+
+const Hash = (password: String) => {
+    const hash = bcrypt.hash(password, 10);
+    return hash;
+}
+
+
+export { compare, Hash }
