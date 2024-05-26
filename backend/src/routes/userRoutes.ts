@@ -4,8 +4,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {User} from '../models/User';
 
-
-
 interface SignupRequestBody {
   username: string;
   email: string;
@@ -36,6 +34,23 @@ const userRoute = () => {
       }
     }
   );
+
+  router.get("/users/:id", async (req, res) => {
+    try {
+      const users = await User.findOne({"_id":req.params.id}).then((value) => {
+        return {"username": value.username, "balance" : ((value.balance) ? value.balance : 0)};
+      })
+
+      res.status(200).json(users);
+
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        message: "Server Error",
+      });
+    }
+
+  });
   
   router.post(
     "/signup",

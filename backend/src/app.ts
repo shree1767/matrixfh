@@ -2,9 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import config from "../config";
 import { userRoute } from "./routes/userRoutes"
-// import router from './routes/userRoutes';
-import { Hash } from "./utils/hash";
-import { hash } from "crypto";
+import { TransactionRouter } from "./routes/transactionRoutes";
 
 const app = express();
 const port = 3000;
@@ -27,6 +25,8 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api", userRoute());
+
+app.use("/api", TransactionRouter());
 
 
 app.listen(port, () => {
